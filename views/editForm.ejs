@@ -1,0 +1,131 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    
+    <div class="row col-8 offset-2 mt-3" >
+     <h3 class="mb-4 mt-2"><%=Blog.title%></h3>
+     <br>
+
+     <form action="/blog/<%=Blog.id%>?_method=PUT" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
+
+        <div class="mb-3">
+            <label for="title" class="form-label"><b>Title:</b></label>
+            <input type="text" name="blog[title]" value="<%=Blog.title%>" class="form-control" required>
+            <div id="validationServer03Feedback" class="invalid-feedback">
+            Please provide a Title.
+            </div>
+            <div id="validationServer03Feedback" class="valid-feedback">
+            Good !
+            </div>
+        </div>
+
+    <!-- //category -->
+   <div class="mb-3">
+    <label for="category" class="form-label"><b>Category:</b></label>
+    <select name="blog[category]" id="category" class="form-select" required>
+
+        <option value="" disabled>Select a Category</option>
+               <option value="Technology" <%= Blog.category === 'Technology' ? 'selected' : '' %>>Technology</option>
+               <option value="Nature" <%= Blog.category === 'Nature' ? 'selected' : '' %>>Nature</option>
+               <option value="Transport" <%= Blog.category === 'Transport' ? 'selected' : '' %>>Transport</option>
+               <option value="Politics" <%= Blog.category === 'Politics' ? 'selected' : '' %>>Politics</option>
+               <option value="Network" <%= Blog.category === 'Network' ? 'selected' : '' %>>Network</option>
+               <option value="Time" <%= Blog.category === 'Time' ? 'selected' : '' %>>Time-management</option>
+               <option value="GDP" <%= Blog.category === 'GDP' ? 'selected' : '' %>>GDP</option>
+               <option value="HealthCare" <%= Blog.category === 'HealthCare' ? 'selected' : '' %>>HealthCare</option>
+               <option value="Fashion" <%= Blog.category === 'Fashion' ? 'selected' : '' %>>Fashion</option>
+               <option value="HollyWood" <%= Blog.category === 'HollyWood' ? 'selected' : '' %>>HollyWood</option>
+               <option value="E-Sports" <%= Blog.category === 'E-Sports' ? 'selected' : '' %>>E-Sports</option>
+               <option value="E-com" <%= Blog.category === 'E-com' ? 'selected' : '' %>>E-com</option>
+               <option value="Climate" <%= Blog.category === 'Climate' ? 'selected' : '' %>>Climate</option>
+               <option value="other" <%= Blog.category === 'other' ? 'selected' : '' %>>Others</option>
+    </select>
+    <div class="invalid-feedback">
+     Please select a Category.
+    </div>
+    <div class="valid-feedback">
+     Looks good!
+    </div>
+<!-- </div> -->
+           <div class="invalid-feedback">
+            Please select a Category.
+           </div>
+           <div class="valid-feedback">
+            Looks good!
+           </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label"><b>Description:</b></label>
+            <input type="text" name="blog[description]" value="<%=Blog.description%>" class="form-control" required minlength="5" maxlength="10">
+            <div id="validationServer03Feedback" class="invalid-feedback">
+             Please provide a Description for a Blog.
+            </div>
+            <div id="validationServer03Feedback" class="valid-feedback">
+            That's Good !
+            </div>
+        </div>
+          
+        <div class="row  div-img-edit">
+
+            <div class="mb-3 col-3 curr-img">
+             <b> Current Image</b>  <img src="<%=Blog.image.url%>" alt="" style="height: 2rem; width: 2rem; border-radius: 30%; ">
+            </div>
+
+            <div class="mb-3 col-9">
+              <label for="image" class="form-label"><b>Upload Image:</b></label>
+              <input type="file" name="blog[image]" class="form-control" >
+
+              <div id="validationServer03Feedback" class="invalid-feedback">
+                Please upload a Valid image .
+              </div>
+              <div id="validationServer03Feedback" class="valid-feedback">
+               Nice!
+              </div>
+            <div>
+        </div>
+        </div>
+            
+         
+        
+        <div class="mb-3">
+            <label for="content" class="form-label"><b>Content:</b></label>
+            <textarea name="blog[content]" id="" rows="15" cols="30" class="form-control" required><%=Blog.content%></textarea>
+            <div id="validationServer03Feedback" class="invalid-feedback">
+            Content connot be Empty
+            </div>
+            <div id="validationServer03Feedback" class="valid-feedback">
+            Amazing !
+            </div>
+        </div>
+
+       
+      </div>
+       <button class="btn btn-dark ">Done</button>
+    </div>
+      
+
+     </form>
+</body>
+
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>

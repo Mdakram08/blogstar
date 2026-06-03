@@ -1,0 +1,128 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <br>
+    <div class="carsd">
+     <div class="row offset-2">
+       <!-- //Blog show -->
+        <div class="card-image col-10">
+            <h1><%=Blog.title%></h1>
+            <h5 class="authorname"><b style="color: rgb(5, 5, 72);">Author:</b> <a href="<%=Blog.owner._id%>/profile"><%=Blog.owner.username%></a></h5>
+            <br>
+            <img src="<%= Blog.image.url %>" class="card-img-top imageshow" alt="..." style="height: 22rem;"> 
+            <br>
+            <br>
+
+            <div class="card-content">
+                <p><b>Title: </b><%=Blog.title%></p>
+                <!-- <p><b>Category: </b><%=Blog.category%></p> -->
+                <p><b>Description: </b><%=Blog.description%></p>
+                <p><b>Content: </b><%=Blog.content%></p>
+
+            </div>
+            <%if(currUser && currUser._id.equals(Blog.owner._id)){%>
+            <div class="btns mt-3">
+                 <a href="/blog/<%=Blog.id%>/edit"><button class="btn btn-dark mb-">Edit</button></a>
+                 <form action="/blog/<%=Blog.id%>?_method=Delete" method="post">
+                 <button class="btn btn-danger delbtn">Delete</button>
+                 </form>  
+            </div> 
+            <%}%>
+
+          <!-- blog review form -->
+          <%if(currUser){%>
+            <br>
+            <div class="review-form">
+                <hr>   
+                <h1 class="">
+                  Comment your Thoughts!
+                  <br>
+                  <h6  style="color: rgb(5, 5, 72);">"<%=Blog.title%>"</h6>
+                </h1>
+
+              <form action="/blog/<%=Blog.id%>/reviews" method="post" class="needs-validation" novalidate>
+                 <div class="star">
+                 <label for="rating" class="form-label"><b>Rating:</b></label>
+                 <!-- star animation -->
+                 <fieldset class="starability-basic " >
+                  <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                  <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                  <label for="first-rate1" title="Terrible">1 star</label>
+                  <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                  <label for="first-rate2" title="Not good">2 stars</label>
+                  <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                  <label for="first-rate3" title="Average">3 stars</label>
+                  <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                  <label for="first-rate4" title="Very good">4 stars</label>
+                  <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                  <label for="first-rate5" title="Amazing">5 stars</label>
+                 </fieldset>
+                 </div>
+
+                 <div class="mb-3">
+                   <label for="comment" class="form-label"><b>Comment:</b></label>
+                   <textarea name="review[comment]" id="" class="form-control" rows="10" cols="12" required></textarea>
+                   <div id="validationServer03Feedback" class="invalid-feedback">
+                   Please provide a valuable Comment.
+                   </div>
+                   <div id="validationServer03Feedback" class="valid-feedback">
+                   Nice !
+                   </div>
+                 <button class="btn btn-dark mt-3">Submit</button>
+              </form>
+            </div>
+            <%}%>
+           
+            <!-- blog review form show reviews -->
+            <hr>
+            <div class="review-show"> 
+              <%for(review of Blog.reviews){%>
+                 <h2><b>Comments</b></h2>
+                 <div class="row mt-1">
+                   <div class="card mb-1 cd">
+                    <div class="comment-div">
+                      <div class="div-img mb-1">
+                       <b style="color: rgb(66, 66, 168); " class="authorname"><a href="<%=Blog.owner._id%>/profile">@<%=review.author.username%></a></b>
+                      </div>
+                     <p class="review-text mb-2">
+                      <p class="starability-result card-text-rating " data-rating="<%=review.rating%>"></p>
+                      <b class="comment mt-2">Comment:</b> <b class="review-comment"><%=review.comment%></b> !<br>
+                      <%if(currUser && currUser._id.equals(review.author._id)){%>
+                       <form action="/blog/<%=Blog.id%>/reviews/<%=review.id%>?_method=DELETE" method="post">
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                       </form>
+                      <%}%>
+                     </p>
+                    </div>
+                   </div>
+                 </div>
+              <%}%>
+            </div>
+        </div>
+     </div> 
+    </div>
+  </div>
+</body>
+
+<!-- Bootstrap form validations -->
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
+

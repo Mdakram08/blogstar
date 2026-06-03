@@ -1,0 +1,57 @@
+<style>
+  .navbar{
+    background-color: whitesmoke !important;
+    
+  }.curruser{
+    margin-left: 1rem !important;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a href="/"><i class="fa-solid fa-pen-fancy"></i></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/blog">Blogs <i class="fa-solid fa-rectangle-list"></i> </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  active" href="/blog/new" >Add new <i class="fa-solid fa-plus"></i></a>
+        </li>
+        <% if(currUser && currUser.isAdmin){ %>
+        <li class="nav-item">
+          <a class="nav-link active fw-semibold" href="/admin" style="color:#1a1a2e !important;">
+            <i class="fa-solid fa-shield-halved"></i> Admin
+          </a>
+        </li>
+        <% } %>
+      </ul>
+      
+      <div class="curruser">
+      <% if(!currUser){ %>
+         <div class="usersignup">
+            <a href="/signup">
+             <button class="btn btn-dark btn-sm">SignUp</button>
+            </a>
+         </div>
+    <% } %>
+
+    <% if(currUser){ %>
+         <div>
+            <a href="/profile">
+             <i class="fa-solid fa-circle-user"></i>
+            </a>
+         </div>
+    <% } %>
+
+    </div>
+    </div>
+  </div>
+</nav>
+
+

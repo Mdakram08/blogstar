@@ -1,0 +1,111 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <div class="row col-8 offset-2">
+    <h1 class="mb-3 mt-3">Add New Blog</h1>
+    <form action="/blog" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
+      
+      <!-- title -->
+        <div class="mb-3">
+           <label for="title" class="form-label"><b>Title:</b></label>
+           <input type="text" name="blog[title]" placeholder="Enter Title" class="form-control" required>
+           <div id="validationServer03Feedback" class="invalid-feedback">
+            Please provide a Title.
+           </div>
+           <div id="validationServer03Feedback" class="valid-feedback">
+            Good !
+           </div>
+        </div>
+
+      <!-- category -->
+        <div class="mb-3">
+           <label for="category" class="form-label"><b>Category:</b></label>
+           <select name="blog[category]" id="category" class="form-select" required>
+               <option value="" disabled selected>Select a Category</option>
+               <option value="Technology">Technology</option>
+               <option value="Nature">Nature</option>
+               <option value="Transport">Transport</option>
+               <option value="Politics">Politics</option>
+               <option value="Network">Network</option>
+               <option value="Time">Time-management</option>
+               <option value="GDP">GDP</option>
+               <option value="HealthCare">HealthCare</option>
+               <option value="Fashion">Fashion</option>
+               <option value="HollyWood">HollyWood</option>
+               <option value="E-Sports">E-Sports</option>
+               <option value="E-com">E-com</option>
+               <option value="Climate">Climate</option>
+               <option value="other">Others</option>
+           </select>
+           <div class="invalid-feedback">
+            Please select a Category.
+           </div>
+           <div class="valid-feedback">
+            Looks good!
+           </div>
+        </div>
+       
+        <!-- des-image -->
+        <div class="row">
+            <div class="mb-3 col-7">
+             <label for="description" class="form-label"><b>Description:</b></label>
+             <input type="text" name="blog[description]" placeholder="Enter Description" class="form-control" required>
+             <div id="validationServer03Feedback" class="invalid-feedback">
+               Please provide a Description of a Blog.
+             </div>
+             <div id="validationServer03Feedback" class="valid-feedback">
+               That's Good!
+             </div>
+            </div>
+        
+
+            <!-- listing image upload -->
+            <div class="mb-3 col-5" >
+             <label for="image" class="form-label"><b>Image:</b></label>
+             <input type="file" name="blog[image]" placeholder="upload Image " class="form-control" required>
+             <div id="validationServer03Feedback" class="invalid-feedback">
+              Please upload a Valid image .
+             </div>
+             <div id="validationServer03Feedback" class="valid-feedback">
+              Nice !
+             </div>
+            </div>
+        </div>
+
+      <!-- content -->
+        <div class="mb-3">
+            <label for="content" class="form-label"><b>Content</b></label>
+            <textarea name="blog[content]" id="" placeholder="Enter Content" rows="10" cols="30" class="form-control" required></textarea>
+            <div id="validationServer03Feedback" class="invalid-feedback">
+            Content connot be Empty
+            </div>
+            <div id="validationServer03Feedback" class="valid-feedback">
+            Amazing !
+            </div>
+
+            <button class="btn btn-dark mt-2">Submit</button>
+        </div>
+    </form>
+    </div>  
+</body>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>

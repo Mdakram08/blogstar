@@ -1,0 +1,205 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+<!-- filter -->
+ <div class="row offset-1 mt-2">
+<div class="filters mb-3 ">
+
+  <div class="filter">
+    <a href="/blog">
+        <i class="fa-solid fa-bars icon"></i>
+        <p>All</p>
+    </a>
+</div>
+
+<div class="filter">
+    <a href="/blog?category=Technology">
+        <i class="fa-solid fa-fire icon"></i>
+        <p class="cat-title">Technology</p>
+    </a>
+</div>
+
+<div class="filter">
+    <a href="/blog?category=Nature">
+        <i class="fa-solid fa-tree icon"></i>
+        <p>Nature</p>
+    </a>
+</div>
+
+<div class="filter">
+    <a href="/blog?category=Transport">
+        <i class="fa-solid fa-truck icon"></i>
+        <p>Transport</p>
+    </a>
+</div>
+
+<div class="filter">
+    <a href="/blog?category=Politics">
+        <i class="fa-solid fa-globe icon"></i>
+        <p>Politics</p>
+    </a>
+</div>
+
+<div class="filter">
+    <a href="/blog?category=Network">
+        <i class="fa-solid fa-wifi icon"></i>
+        <p>Network</p>
+    </a>
+</div>
+
+<div class="filter">
+    <a href="/blog?category=Time">
+        <i class="fa-solid fa-hourglass-start icon"></i>
+        <p>Time-MAN</p>
+    </a>
+</div>
+
+<div class="filter">
+    <a href="/blog?category=GDP">
+        <i class="fa-solid fa-hand-holding-heart icon"></i>
+        <p>GDP</p>
+    </a>
+</div>
+
+<div class="filter">
+    <a href="/blog?category=HealthCare">
+        <i class="fa-solid fa-stethoscope icon"></i>
+        <p>HealthCare</p>
+    </a>
+</div>
+
+<div class="filter">
+    <a href="/blog?category=Fashion">
+        <i class="fa-solid fa-shirt icon"></i>
+        <p>Fashion</p>
+    </a>
+</div>
+
+<div class="filter">
+    <a href="/blog?category=HollyWood">
+        <i class="fa-solid fa-clapperboard icon"></i>
+        <p>HollyWood</p>
+    </a>
+</div>
+
+<div class="filter">
+    <a href="/blog?category=E-Sports">
+        <i class="fa-brands fa-playstation icon"></i>
+        <p>E-Sports</p>
+    </a>
+</div>
+
+<div class="filter">
+    <a href="/blog?category=E-com">
+        <i class="fa-solid fa-cart-plus icon"></i>
+        <p>E-Com</p>
+    </a>
+</div>
+
+<div class="filter">
+    <a href="/blog?category=Climate">
+        <i class="fa-solid fa-snowflake icon"></i>
+        <p>Climate</p>
+    </a>
+</div>
+
+<div class="filter">
+    <a href="/blog?category=other">
+        <i class="fa-solid fa-bolt icon"></i>
+        <p>Others</p>
+    </a>
+</div>
+</div>  
+</div>
+  
+  <!-- //blog description -->
+  <div class="row col-11 offset-1">
+   <h1 class="bs">Blogstar</h1>
+   <p class="bs-blog">A blog is a regularly updated website or page written in a conversational tone, often sharing personal insights or professional expertise. Whether you're launching a business or building a personal brand, a blog helps you connect with readers and grow your presence online.In this guide, you’ll learn what a blog is, how it works the different types out there and why blogging is a smart move for just about anyone looking to build trust and stay visible.</p>
+
+    <div class="sw">
+      <div class="form-check form-switch">
+       <div class="sw">
+        <input class="form-check-input sw" type="checkbox" role="switch" id="switchCheckDefault">
+       </div>
+       <label class="form-check-label" for="switchCheckDefault">Display Blog Author</label>
+      </div>
+    </div>
+  </div>
+
+  <br>
+   
+
+  <% for(blog of allBlog) { %>
+  <div class="container">
+    <div class="row col-11 offset-1 maincard ">
+
+      <div class="row col-5">
+        <div class="cardimage h-100">
+          <img src="<%=blog.image.url%>" alt="" style="width: 100%; height: 14rem;" class="cardImg">
+        </div>
+      </div>
+
+      <div class="row col-7 mt-2">
+        <div class="card-content">
+          <p >
+            <b><%=blog.title%></b>
+            <br>
+            <%=blog.description%>
+            <br>
+            <b class="display-Blog-Author"><b style="color: rgb(5, 5, 72) !important;">Author</b>- <%=blog.owner.username%></b>
+          </p>
+          <a href="/blog/<%=blog.id%>"><button class="btn btn-dark mb-1">Read more <i class="fa-solid fa-book-open"></i></button></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <br>
+  <% } %>
+
+<!-- <div class="description row mt-5 blogstar-footer">
+      <div class="row">
+        <div class="col-6">
+          <h4 style="color: rgb(5, 5, 72) !important; opacity: 0.9;"><b>Make Money with us</b></h4>
+            <ul style="list-style-type: disc;">
+              <a href="" class="footer-anchortag">Post on BlogStar </a><br>
+              <a href="" class="footer-anchortag">Post under BlogStar Accelerator</a> <br>
+              <a href="" class="footer-anchortag">Become an Blogger</a> <br>
+              <a href="" class="footer-anchortag">Global Visiblity</a> <br>
+              <a href="" class="footer-anchortag">Info Prodvider</a> <br>
+            </ul>
+        </div>
+        <div class="col-6">
+          <h4 style="color: rgb(5, 5, 72) !important; opacity: 0.9;"><b>Get To Know Us</b></h4>
+            <ul style="list-style-type: disc;">
+              <a href="" class="footer-anchortag">About BlogStar </a><br>
+              <a href="" class="footer-anchortag">Carriers</a> <br>
+              <a href="" class="footer-anchortag">Press Releasers</a> <br>
+              <a href="" class="footer-anchortag">Global Accesibility </a><br>
+            </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <h1 style="opacity: 0.9;">BlogStar</h1>
+        <p style="color: rgb(5, 5, 72) !important; opacity: 0.7;">With this Website, you can quickly generate powerful conclusion statements based on the topics and information included in your blog post. The AI blog conclusion generator works by using an algorithm that takes your content into account and creates the most suitable.With this Website, you can quickly generate powerful conclusion statements based on the topics and information included in your blog post. The AI blog conclusion generator works by using an algorithm that takes your content into account and creates the most suitable.</p>                
+    </div>
+</div> -->
+   
+</body>
+
+<script>
+    let formcheckInput=document.getElementById("switchCheckDefault");
+    formcheckInput.addEventListener("click", ()=>{
+        let blogAuthor=document.getElementsByClassName("display-Blog-Author");
+        for(ba of blogAuthor){
+            if(ba.style.display !== "inline"){
+                ba.style.display="inline";
+            }else{
+                ba.style.display="none";
+            }
+        }
+    });
+</script>

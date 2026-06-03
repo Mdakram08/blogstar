@@ -1,0 +1,87 @@
+<% layout("/layouts/boilerplate") %>
+<body>    
+    <div class="row col-8 offset-2">  
+  <div class="uudel mt-4">
+    
+    <!-- Profile Card -->
+    <div class="card border-0 shadow-sm p-4" style="border-radius: 16px;">
+      <div class="d-flex align-items-center gap-4">
+        
+        <!-- Avatar Circle -->
+        <div style="
+          width: 90px; height: 90px; border-radius: 50%;
+          background: linear-gradient(135deg, #1a1a2e, #16213e);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 2.5rem; font-weight: 700; color: white;
+          flex-shrink: 0;
+        ">
+          <%= profileUser.username.charAt(0).toUpperCase() %>
+        </div>
+
+        <!-- User Info -->
+        <div class="flex-grow-1">
+          <h4 class="fw-bold mb-1" style="text-transform: capitalize;"><%= profileUser.username %></h4>
+          <p class="text-muted mb-2"><i class="fa-solid fa-envelope me-1"></i><%= profileUser.email %></p>
+        
+        </div>
+
+        <!-- Logout -->
+    <% if (currentUser && profileUser && currentUser._id.equals(profileUser._id)) { %>
+    <div>
+     <a href="/logout">
+        <button class="btn btn-danger btn-sm">
+        <i class="fa-solid fa-right-from-bracket me-1"></i>
+        Logout
+        </button>
+     </a>
+    </div>
+    <% } %>
+
+      </div>
+
+      <hr class="my-4">
+
+      <!-- Stats -->
+      <div class="row text-center g-3">
+        <div class="col-6">
+          <div class="p-3 rounded-3" style="background:#f8f9fa;">
+            <h4 class="fw-bold mb-0"><%= blogs.length %></h4>
+            <small class="text-muted">My Blogs</small>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="p-3 rounded-3" style="background:#f8f9fa;">
+            <h4 class="fw-bold mb-0"><%= new Date(profileUser.createdAt).toLocaleDateString("en-IN", {day:"numeric", month:"short", year:"numeric"}) %></h4>
+            <small class="text-muted">Joined</small>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<br>   
+
+ 
+    <% if (blogs.length > 0) { %>
+        <div class="row offset-2 mt-2 col-8">
+          <h2 class="mb-4" style="font-family: Courier, ;"><b>Posts <%=profileUser.username%> Created</b></h2>
+          <ul class="list-group">
+            <% for (let blog of blogs) { %>
+                <li class="list-group-item mb-3">
+                    <img src="<%= blog.image.url %>" alt="" height="40rem" width="40rem" style="border-radius: 50%;"><b class="btu"><%= blog.title %></b>
+                    <p><%= blog.content.substring(0, 150) %>...</p> 
+                    <a href="/blog/<%= blog._id %>" class="btn btn-sm btn-dark">Read Full Post</a>
+                </li>
+            <% } %>
+          </ul>
+        </div>
+    <% } else { %>
+      <div class="alert alert-dark alert-dismissible fade show mt-3 offset-2 col-8" role="alert">
+        <strong>You haven't created any blog posts yet.</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+       <a href="/blog/new"><button class="offset-2 btn btn-dark">Create Blog</button></a>
+    <% } %>
+
+</body>

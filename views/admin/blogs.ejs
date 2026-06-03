@@ -1,0 +1,88 @@
+<% layout('layouts/boilerplate') %>
+
+<style>
+  .admin-header {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: white;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+  }
+  .admin-table th { background-color: #f8f9fa; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .blog-thumb {
+    width: 48px; height: 48px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  .blog-thumb-placeholder {
+    width: 48px; height: 48px;
+    background: #e9ecef;
+    border-radius: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #adb5bd;
+  }
+  .filter-btn.active { background: #1a1a2e !important; color: white !important; border-color: #1a1a2e !important; }
+</style>
+
+<div class="admin-header d-flex justify-content-between align-items-center mt-3">
+  <div>
+    <h2 class="mb-1"><i class="fa-solid fa-newspaper me-2"></i>Manage Blogs</h2>
+    <p class="mb-0 opacity-75"><%= blogs.length %> total blogs</p>
+  </div>
+  <a href="/admin" class="btn btn-outline-light btn-sm"><i class="fa-solid fa-arrow-left me-1"></i>Dashboard</a>
+</div>
+
+<!-- Category filter -->
+<div class="mb-3 d-flex flex-wrap gap-2">
+  <a href="/admin/blogs" class="btn btn-sm btn-outline-dark filter-btn <%= !locals.query ? 'active' : '' %>">All</a>
+  <% ['Technology','Nature','Transport','Politics','Network','HealthCare','Fashion','HollyWood','E-Sports','E-com','Climate','other'].forEach(cat => { %>
+    <a href="/admin/blogs?category=<%= cat %>" class="btn btn-sm btn-outline-secondary filter-btn <%= locals.query === cat ? 'active' : '' %>"><%= cat %></a>
+  <% }) %>
+</div>
+
+<div class="card border-0 shadow-sm">
+  <div class="table-responsive">
+    <table class="table admin-table align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Blog</th>
+          <th>Category</th>
+          <th>Author</th>
+          <th>Reviews</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let b of blogs){ %>
+        <tr>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <% if(b.image && b.image.url){ %>
+                <img src="<%= b.image.url %>" alt="thumb" class="blog-thumb">
+              <% } else { %>
+                <div class="blog-thumb-placeholder"><i class="fa-solid fa-image"></i></div>
+              <% } %>
+              <div>
+                <a href="/blog/<%= b._id %>" class="text-decoration-none text-dark fw-semibold d-block" style="max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><%= b.title %></a>
+                <small class="text-muted" style="max-width:220px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><%= b.description %></small>
+              </div>
+            </div>
+          </td>
+          <td><span class="badge bg-secondary"><%= b.category %></span></td>
+          <td><%= b.owner ? b.owner.username : '<span class="text-muted fst-italic">Deleted</span>' %></td>
+          <td><span class="badge bg-light text-dark border"><%= b.reviews.length %></span></td>
+          <td>
+            <div class="d-flex gap-2">
+              <form action="/admin/blogs/<%= b._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Delete blog and all its reviews?')">
+                <button class="btn btn-outline-danger btn-sm" title="Delete">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>

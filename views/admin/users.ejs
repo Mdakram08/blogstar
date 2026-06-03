@@ -1,0 +1,91 @@
+<% layout('layouts/boilerplate') %>
+
+<style>
+  .admin-header {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: white;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+  }
+  .admin-table th { background-color: #f8f9fa; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .badge-admin { background-color: #1a1a2e; }
+  .user-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #1a1a2e; color: white;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.85rem; margin-right: 0.5rem;
+  }
+</style>
+
+<div class="admin-header d-flex justify-content-between align-items-center mt-3">
+  <div>
+    <h2 class="mb-1"><i class="fa-solid fa-users me-2"></i>Manage Users</h2>
+    <p class="mb-0 opacity-75"><%= users.length %> registered users</p>
+  </div>
+  <a href="/admin" class="btn btn-outline-light btn-sm"><i class="fa-solid fa-arrow-left me-1"></i>Dashboard</a>
+</div>
+
+<div class="card border-0 shadow-sm">
+  <div class="table-responsive">
+    <table class="table admin-table align-middle mb-0">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Joined</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let u of users){ %>
+        <tr>
+          <td>
+            <span class="user-avatar"><%= u.username.charAt(0).toUpperCase() %></span>
+            <span class="fw-semibold"><%= u.username %></span>
+            <% if(u._id.equals(currUser._id)){ %>
+              <span class="badge bg-success ms-1">You</span>
+            <% } %>
+          </td>
+          <td class="text-muted"><%= u.email %></td>
+          <td>
+            <% if(u.isAdmin){ %>
+              <span class="badge badge-admin"><i class="fa-solid fa-shield-halved me-1"></i>Admin</span>
+            <% } else { %>
+              <span class="badge bg-light text-dark border">User</span>
+            <% } %>
+          </td>
+          <td class="text-muted small"><%= new Date(u.createdAt).toLocaleDateString("en-IN", {day:"numeric", month:"short", year:"numeric"}) %></td>
+          <td>
+            <div class="d-flex gap-2">
+              <% if(!u._id.equals(currUser._id)){ %>
+                <!-- Toggle Admin -->
+                <form action="/admin/users/<%= u._id %>/toggle-admin" method="POST">
+                  <% if(u.isAdmin){ %>
+                    <button class="btn btn-outline-secondary btn-sm" title="Remove Admin" onclick="return confirm('Remove admin from <%= u.username %>?')">
+                      <i class="fa-solid fa-user-minus"></i>
+                    </button>
+                  <% } else { %>
+                    <button class="btn btn-outline-dark btn-sm" title="Make Admin" onclick="return confirm('Grant admin to <%= u.username %>?')">
+                      <i class="fa-solid fa-user-shield"></i>
+                    </button>
+                  <% } %>
+                </form>
+                <!-- Delete User -->
+                <form action="/admin/users/<%= u._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Delete user <%= u.username %> and ALL their content? This cannot be undone!')">
+                  <button class="btn btn-outline-danger btn-sm" title="Delete User">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </form>
+              <% } else { %>
+                <span class="text-muted small fst-italic">No actions</span>
+              <% } %>
+            </div>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
