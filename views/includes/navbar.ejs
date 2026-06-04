@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
   .navbar{
     background-color: whitesmoke !important;
     
@@ -54,4 +54,122 @@
   </div>
 </nav>
 
+ -->
+<style>
+  .navbar {
+    background: whitesmoke;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 0 1.5rem;
+    height: 56px;
+  }
 
+  .navbar-brand {
+    font-size: 1.1rem;
+    color: #1a1a2e;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    border-radius: 6px;
+    padding: 6px 12px !important;
+    transition: background 0.15s;
+  }
+  .nav-link:hover,
+  .nav-link.active {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .nav-admin-link {
+    background: #1a1a2e !important;
+    color: #e2e8f0 !important;
+    border-radius: 6px;
+  }
+  .nav-admin-link:hover {
+    background: #2d2d4e !important;
+    color: #fff !important;
+  }
+
+  .nav-user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a1a2e;
+    font-size: 1.1rem;
+    transition: background 0.15s;
+  }
+  .nav-user-avatar:hover {
+    background: #f0f0f0;
+  }
+
+  .btn-signup {
+    font-size: 0.8rem;
+    padding: 5px 14px;
+    border-radius: 6px;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg sticky-top" role="navigation" aria-label="Main navigation">
+  <div class="container-fluid">
+
+    <!-- Brand -->
+    <a class="navbar-brand" href="/">
+      <i class="fa-solid fa-pen-fancy"></i>
+    </a>
+
+    <!-- Mobile toggler -->
+    <button
+      class="navbar-toggler border-0"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" href="/blog">
+            <i class="fa-solid fa-rectangle-list"></i> Blogs
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog/new">
+            <i class="fa-solid fa-plus"></i> Add New
+          </a>
+        </li>
+        <% if (currUser && currUser.isAdmin) { %>
+        <li class="nav-item">
+          <a class="nav-link nav-admin-link" href="/admin">
+            <i class="fa-solid fa-shield-halved"></i> Admin
+          </a>
+        </li>
+        <% } %>
+      </ul>
+
+      <!-- Right: auth controls -->
+      <div class="d-flex align-items-center gap-2">
+        <% if (!currUser) { %>
+          <a href="/signup" class="btn btn-dark btn-sm btn-signup">Sign Up</a>
+        <% } else { %>
+          <a href="/profile" class="nav-user-avatar text-decoration-none" aria-label="View profile">
+            <i class="fa-solid fa-circle-user"></i>
+          </a>
+        <% } %>
+      </div>
+
+    </div>
+  </div>
+</nav>
