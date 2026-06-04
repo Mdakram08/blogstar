@@ -75,19 +75,21 @@
     font-size: 0.875rem;
     border-radius: 6px;
     padding: 6px 12px !important;
-    transition: background 0.15s;
   }
 
-  @media (max-width: 991.98px) {
-  .navbar-collapse {
-    background: whitesmoke;
+ @media (max-width: 991.98px) {
+  .navbar-collapse.show {
+    background: whitesmoke !important;
     border-top: 1px solid #e5e5e5;
-    padding: 0.5rem 0;
-    margin: 0 -1.5rem;
+    padding: 0.75rem 1rem;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+   }
   }
-}
+
   .nav-link:hover,
   .nav-link.active {
     background: rgba(0, 0, 0, 0.05);
