@@ -1,10 +1,9 @@
 <% layout("/layouts/boilerplate") %>
 <body>    
- <div class="row col-10 offset-2">  
-  <div class="uudel mt-4">
     
+  <div class="row">
     <!-- Profile Card -->
-    <div class="card border-0 shadow-sm p-4" style="border-radius: 16px;">
+    <div class="card border-0 shadow-sm p-4 col-10 offset-2" style="border-radius: 16px;">
       <div class="d-flex align-items-center gap-4">
         
         <!-- Avatar Circle -->
@@ -13,8 +12,7 @@
           background: linear-gradient(135deg, #1a1a2e, #16213e);
           display: flex; align-items: center; justify-content: center;
           font-size: 2.5rem; font-weight: 700; color: white;
-          flex-shrink: 0;
-        ">
+          flex-shrink: 0;">
           <%= user.username.charAt(0).toUpperCase() %>
         </div>
 
@@ -37,11 +35,14 @@
         </div>
 
       </div>
+    </div>
+  </div>
 
       <hr class="my-4">
-
+    
       <!-- Stats -->
-      <div class="row text-center g-3">
+  <div class="row text-center g-3">
+
         <div class="col-6">
           <div class="p-3 rounded-3" style="background:#f8f9fa;">
             <h4 class="fw-bold mb-0"><%= blogs.length %></h4>
@@ -49,39 +50,39 @@
           </div>
         </div>
        
-          <div class="col-6">
+        <div class="col-6">
           <div class="p-3 rounded-3" style="background:#f8f9fa;">
             <h4 class="fw-bold mb-0"><%= new Date(user.createdAt).toLocaleDateString("en-IN", {day:"numeric", month:"short", year:"numeric"}) %></h4>
             <small class="text-muted">Joined</small>
           </div>
         </div>
-      </div>
 
-    </div>
   </div>
-</div>
-<br>   
+  <br>   
 
  
     <% if (blogs.length > 0) { %>
-        <div class="row offset-2 mt-2 col-8">
-          <h2 class="mb-4" style="font-family: Courier, ;"><b>Posts You've Created</b></h2>
+  <div class="row mt-2">
+
+    <div class="col-10 offset-2"></div>
+        <h2 class="mb-4" style="font-family: Courier, ;"><b>Posts You've Created</b></h2>
           <ul class="list-group">
             <% for (let blog of blogs) { %>
-                <li class="list-group-item mb-3">
-                    <img src="<%= blog.image.url %>" alt="" height="40rem" width="40rem" style="border-radius: 50%;"><b class="btu"><%= blog.title %></b>
-                    <p><%= blog.content.substring(0, 150) %>...</p> 
-                    <a href="/blog/<%= blog._id %>" class="btn btn-sm btn-dark">Read Full Post</a>
-                </li>
+              <li class="list-group-item mb-3">
+                <img src="<%= blog.image.url %>" alt="" height="40rem" width="40rem" style="border-radius: 50%;"><b class="btu"><%= blog.title %></b>
+                <p><%= blog.content.substring(0, 150) %>...</p> 
+                <a href="/blog/<%= blog._id %>" class="btn btn-sm btn-dark">Read Full Post</a>
+              </li>
             <% } %>
           </ul>
-        </div>
-    <% } else { %>
-      <div class="alert alert-dark alert-dismissible fade show mt-3 offset-2 col-8" role="alert">
+    </div>
+
+       <% } else { %>
+    <div class="alert alert-dark alert-dismissible fade show mt-3 offset-2 col-10" role="alert">
         <strong>You haven't created any blog posts yet.</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-       <a href="/blog/new"><button class="offset-2 btn-sm btn btn-dark">Create Blog</button></a>
+    </div>
+    <a href="/blog/new"><button class="offset-2 btn-sm btn btn-dark">Create Blog</button></a>
     <% } %>
 
 </body>
