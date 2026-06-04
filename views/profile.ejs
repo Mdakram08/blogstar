@@ -1,87 +1,164 @@
 <% layout("/layouts/boilerplate") %>
-<body>    
-    <div class="row col-8 offset-2">  
-  <div class="uudel mt-4">
-    
+
+<div class="container py-4">
+
     <!-- Profile Card -->
-    <div class="card border-0 shadow-sm p-4" style="border-radius: 16px;">
-      <div class="d-flex align-items-center gap-4">
-        
-        <!-- Avatar Circle -->
-        <div style="
-          width: 90px; height: 90px; border-radius: 50%;
-          background: linear-gradient(135deg, #1a1a2e, #16213e);
-          display: flex; align-items: center; justify-content: center;
-          font-size: 2.5rem; font-weight: 700; color: white;
-          flex-shrink: 0;
-        ">
-          <%= user.username.charAt(0).toUpperCase() %>
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+
+            <div class="card border-0 shadow-sm p-4" style="border-radius:16px;">
+                <div class="d-flex flex-column flex-md-row align-items-center gap-4">
+
+                    <!-- Avatar -->
+                    <div
+                        class="d-flex align-items-center justify-content-center flex-shrink-0"
+                        style="
+                            width:90px;
+                            height:90px;
+                            border-radius:50%;
+                            background:linear-gradient(135deg,#1a1a2e,#16213e);
+                            color:white;
+                            font-size:2.5rem;
+                            font-weight:700;
+                        ">
+                        <%= user.username.charAt(0).toUpperCase() %>
+                    </div>
+
+                    <!-- User Info -->
+                    <div class="flex-grow-1 text-center text-md-start">
+                        <h3 class="fw-bold mb-1 text-capitalize">
+                            <%= user.username %>
+                        </h3>
+
+                        <p class="text-muted mb-2">
+                            <i class="fa-solid fa-envelope me-1"></i>
+                            <%= user.email %>
+                        </p>
+
+                        <% if(user.isAdmin){ %>
+                            <span class="badge" style="background:#1a1a2e;">
+                                <i class="fa-solid fa-shield-halved me-1"></i>
+                                Admin
+                            </span>
+                        <% } else { %>
+                            <span class="badge bg-secondary">
+                                User
+                            </span>
+                        <% } %>
+                    </div>
+
+                    <!-- Logout -->
+                    <div>
+                        <a href="/logout" class="btn btn-danger btn-sm">
+                            <i class="fa-solid fa-right-from-bracket me-1"></i>
+                            Logout
+                        </a>
+                    </div>
+
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Stats -->
+                <div class="row text-center g-3">
+
+                    <div class="col-6">
+                        <div class="p-3 rounded-3 bg-light">
+                            <h4 class="fw-bold mb-0">
+                                <%= blogs.length %>
+                            </h4>
+                            <small class="text-muted">
+                                My Blogs
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="p-3 rounded-3 bg-light">
+                            <h6 class="fw-bold mb-0">
+                                <%= new Date(user.createdAt).toLocaleDateString("en-IN", {
+                                    day:"numeric",
+                                    month:"short",
+                                    year:"numeric"
+                                }) %>
+                            </h6>
+                            <small class="text-muted">
+                                Joined
+                            </small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-
-        <!-- User Info -->
-        <div class="flex-grow-1">
-          <h4 class="fw-bold mb-1" style="text-transform: capitalize;"><%= user.username %></h4>
-          <p class="text-muted mb-2"><i class="fa-solid fa-envelope me-1"></i><%= user.email %></p>
-          <% if(user.isAdmin){ %>
-            <span class="badge" style="background:#1a1a2e;"><i class="fa-solid fa-shield-halved me-1"></i>Admin</span>
-          <% } else { %>
-            <span class="badge bg-secondary">User</span>
-          <% } %>
-        </div>
-
-        <!-- Logout -->
-        <div>
-          <a href="/logout">
-            <button class="btn btn-danger btn-sm"><i class="fa-solid fa-right-from-bracket me-1"></i>LogOut</button>
-          </a>
-        </div>
-
-      </div>
-
-      <hr class="my-4">
-
-      <!-- Stats -->
-      <div class="row text-center g-3">
-        <div class="col-6">
-          <div class="p-3 rounded-3" style="background:#f8f9fa;">
-            <h4 class="fw-bold mb-0"><%= blogs.length %></h4>
-            <small class="text-muted">My Blogs</small>
-          </div>
-        </div>
-       
-          <div class="col-6">
-          <div class="p-3 rounded-3" style="background:#f8f9fa;">
-            <h4 class="fw-bold mb-0"><%= new Date(user.createdAt).toLocaleDateString("en-IN", {day:"numeric", month:"short", year:"numeric"}) %></h4>
-            <small class="text-muted">Joined</small>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </div>
-</div>
-<br>   
 
- 
-    <% if (blogs.length > 0) { %>
-        <div class="row offset-2 mt-2 col-8">
-          <h2 class="mb-4" style="font-family: Courier, ;"><b>Posts You've Created</b></h2>
-          <ul class="list-group">
-            <% for (let blog of blogs) { %>
-                <li class="list-group-item mb-3">
-                    <img src="<%= blog.image.url %>" alt="" height="40rem" width="40rem" style="border-radius: 50%;"><b class="btu"><%= blog.title %></b>
-                    <p><%= blog.content.substring(0, 150) %>...</p> 
-                    <a href="/blog/<%= blog._id %>" class="btn btn-sm btn-dark">Read Full Post</a>
-                </li>
+    <!-- Blog Section -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-12 col-lg-8">
+
+            <% if (blogs.length > 0) { %>
+
+                <h2 class="mb-4 fw-bold" style="font-family:Courier;">
+                    Posts You've Created
+                </h2>
+
+                <div class="list-group">
+
+                    <% blogs.forEach(blog => { %>
+
+                        <div class="list-group-item p-3 mb-3 border rounded shadow-sm">
+
+                            <div class="d-flex align-items-center gap-3 mb-3">
+
+                                <img
+                                    src="<%= blog.image.url %>"
+                                    alt="<%= blog.title %>"
+                                    width="50"
+                                    height="50"
+                                    class="rounded-circle"
+                                    style="object-fit:cover;"
+                                >
+
+                                <h5 class="mb-0 fw-bold">
+                                    <%= blog.title %>
+                                </h5>
+
+                            </div>
+
+                            <p class="text-muted">
+                                <%= blog.content.substring(0,150) %>...
+                            </p>
+
+                            <a
+                                href="/blog/<%= blog._id %>"
+                                class="btn btn-dark btn-sm"
+                            >
+                                Read Full Post
+                            </a>
+
+                        </div>
+
+                    <% }) %>
+
+                </div>
+
+            <% } else { %>
+
+                <div class="alert alert-dark">
+                    <strong>
+                        You haven't created any blog posts yet.
+                    </strong>
+                </div>
+
+                <a href="/blog/new" class="btn btn-dark btn-sm">
+                    Create Blog
+                </a>
+
             <% } %>
-          </ul>
-        </div>
-    <% } else { %>
-      <div class="alert alert-dark alert-dismissible fade show mt-3 offset-2 col-8" role="alert">
-        <strong>You haven't created any blog posts yet.</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-       <a href="/blog/new"><button class="offset-2 btn-sm btn btn-dark">Create Blog</button></a>
-    <% } %>
 
-</body>
+        </div>
+    </div>
+
+</div>
