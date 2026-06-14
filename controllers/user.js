@@ -9,7 +9,7 @@ module.exports.signupform=(req,res)=>{
 // user signup route passport.js
 module.exports.signup=async(req,res)=>{
      try {
-      const { username, email, password } = req.body;
+      const { username, email,password } = req.body;
       const newUser =await new user({ username, email });
       const registerdUser = await user.register(newUser, password);
 
