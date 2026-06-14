@@ -20,7 +20,7 @@ const blogSchema=new mongoose.Schema({
         type: String,
         required:true,
         // Define a set of valid categories
-        enum: ['Technology', 'Nature', 'Transport','Politics','Network','Time','GDP','HealthCare','Fashion','HollyWood','E-Sports','E-com','Social-M','other'], 
+        enum: ['Technology', 'Nature', 'Transport','Politics','Network','Time','GDP','HealthCare','Fashion','HollyWood','E-Sports','E-com','social-m','other'], 
     },
     reviews:[
         {
